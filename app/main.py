@@ -1,12 +1,8 @@
-import logging
-import os
-
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 
 from app.v1.api import router as router_v1
 from app.v1.utils.exceptions import validation_exception_handler
-
 
 
 def set_custom_openapi(application: FastAPI):

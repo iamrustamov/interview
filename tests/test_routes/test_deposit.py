@@ -6,12 +6,7 @@ client = TestClient(app)
 
 
 def test_calculate_deposit():
-    payload = {
-        "date": "31.01.2023",
-        "periods": 60,
-        "amount": 3000000,
-        "rate": 5
-    }
+    payload = {"date": "31.01.2023", "periods": 60, "amount": 3000000, "rate": 5}
 
     expected_response = {
         "31.01.2023": 3012500,
@@ -73,7 +68,7 @@ def test_calculate_deposit():
         "30.09.2027": 3802348.37,
         "31.10.2027": 3818191.49,
         "30.11.2027": 3834100.62,
-        "31.12.2027": 3850076.04
+        "31.12.2027": 3850076.04,
     }
 
     response = client.post("/api/v1/deposit/calculate", json=payload)
