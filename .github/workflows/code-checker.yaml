@@ -1,4 +1,4 @@
-name: Проверка
+name: Checkers
 on: [push]
 jobs:
   lint:
@@ -28,11 +28,5 @@ jobs:
           poetry install
 
 
-      - name: Run pytest
+      - name: Run pytest and coverage
         run: PYTHONPATH=app/ poetry run python -m pytest -v --cov=app/ tests/
-
-      - name: Run Coverage
-        run: PYTHONPATH=app/ poetry run python -m coverage report -m;
-
-      - name: Generate XML Report
-        run: PYTHONPATH=app/ poetry run python -m coverage xml
