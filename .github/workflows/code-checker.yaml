@@ -1,0 +1,46 @@
+name: Проверка
+on: [push]
+jobs:
+  lint:
+    name: Black code formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.10
+
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.3
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-$
+          restore-keys: |
+            poetry-$
+
+      - name: Install Dependencies using Poetry
+        run: poetry install
+
+      - name: Run pytest
+        run: PYTHONPATH=app/ poetry run python -m pytest -v --cov=app/ tests/
+
+      - name: Run Coverage
+        run: PYTHONPATH=app/ poetry run python -m coverage report -m;
+
+      - name: Generate XML Report
+        run: PYTHONPATH=app/ poetry run python -m coverage xml
