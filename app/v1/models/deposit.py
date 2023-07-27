@@ -22,13 +22,13 @@ class DepositModel(BaseModel):
             datetime.strptime(v, "%d.%m.%Y")
             return v
         except ValueError:
-            raise ValueError('should be a string in the format "dd.mm.YYYY"')
+            raise ValueError("should be a string in the format 'dd.mm.YYYY'")
 
     @validator("periods", pre=True)
     def validate_periods(cls, value) -> int:
         if not isinstance(value, int) or not (1 <= value <= 60):
             raise ValueError(
-                'invalid value for "periods". Should be an integer between 1 and 60'
+                "invalid value for 'periods'. Should be an integer between 1 and 60"
             )
         return value
 
