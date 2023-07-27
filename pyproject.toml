@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["Daler Rustamov <iamrustamov@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.100.1"
+uvicorn = "0.17.6"
+pydantic = "1.10.2"
+python-dateutil = "^2.8.2"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+httpx = "^0.24.1"
+pytest-asyncio = "^0.21.1"
+pytest-mock = "^3.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
