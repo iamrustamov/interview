@@ -41,5 +41,5 @@ class DepositModel(BaseModel):
     @validator("rate", pre=True)
     def validate_rate(cls, value) -> Union[float, int]:
         if not isinstance(value, (float, int)) or not (1 <= value <= 8):
-            raise ValueError("should be a float between 1 and 8.")
+            raise ValueError("should be a float between 1 and 8")
         return value
