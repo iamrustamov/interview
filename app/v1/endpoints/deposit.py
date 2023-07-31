@@ -8,20 +8,9 @@ from app.v1.models import deposit, exceptions
 
 router = APIRouter()
 
-responses = {
-    status.HTTP_200_OK: {
-        "description": "Returns the result of deposit calculation by month"
-    },
-    status.HTTP_400_BAD_REQUEST: {
-        "model": exceptions.ExceptionModel,
-        "description": "Validation error",
-    },
-    status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": None},
-}
-
 
 async def calculate(
-    amount: int, date: str, periods: int, rate: float
+        amount: int, date: str, periods: int, rate: float
 ) -> Mapping[str, float]:
     result = {}
     amount_with_monthly_interest: float = float(amount)
@@ -40,7 +29,15 @@ async def calculate(
     "/calculate",
     summary="Endpoint for deposit calculation",
     response_model=Mapping[str, float],
-    responses=responses,
+    responses={
+        status.HTTP_200_OK: {
+            "description": "Returns the result of deposit calculation by month"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": exceptions.ExceptionModel,
+            "description": "Validation error",
+        }
+    }
 )
 async def deposit_calculation(model: deposit.DepositModel):
     return await calculate(model.amount, model.date, model.periods, model.rate)

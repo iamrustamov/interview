@@ -8,7 +8,7 @@ from app.v1.utils.exceptions import validation_exception_handler
 def set_custom_openapi(application: FastAPI):
     if not application.openapi_schema:
         application.openapi_schema = application.openapi()
-    for _, method_item in application.openapi_schema.get("paths").items():
+    for _, method_item in application.openapi_schema.get("paths").items():  # type: ignore
         for _, param in method_item.items():
             responses = param.get("responses")
             if "422" in responses:
