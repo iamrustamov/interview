@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 async def calculate(
-        amount: int, date: str, periods: int, rate: float
+    amount: int, date: str, periods: int, rate: float
 ) -> Mapping[str, float]:
     result = {}
     amount_with_monthly_interest: float = float(amount)
@@ -36,8 +36,8 @@ async def calculate(
         status.HTTP_400_BAD_REQUEST: {
             "model": exceptions.ExceptionModel,
             "description": "Validation error",
-        }
-    }
+        },
+    },
 )
 async def deposit_calculation(model: deposit.DepositModel):
     return await calculate(model.amount, model.date, model.periods, model.rate)
