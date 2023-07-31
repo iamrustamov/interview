@@ -22,25 +22,24 @@ responses = {
 
 async def calculate(
     amount: int, date: str, periods: int, rate: float
-) -> Mapping[str, int | float]:
+) -> Mapping[str, float]:
     result = {}
     amount_with_monthly_interest: float = float(amount)
     start_date = datetime.strptime(date, "%d.%m.%Y")
 
     for idx in range(periods):
-        amount_with_monthly_interest *= 1 + (rate / 12 / 100)
+        amount_with_monthly_interest *= 1 + rate / 12 / 100
         current_date = start_date + relativedelta(months=idx)
         result[current_date.strftime("%d.%m.%Y")] = round(
             amount_with_monthly_interest, 2
         )
-
     return result
 
 
 @router.post(
     "/calculate",
     summary="Endpoint for deposit calculation",
-    response_model=Mapping[str, int | float],
+    response_model=Mapping[str, float],
     responses=responses,
 )
 async def deposit_calculation(model: deposit.DepositModel):
